@@ -15,9 +15,3 @@ EXPOSE 8080
 # # Start Tomcat when the container starts
 CMD ["catalina.sh", "run"]
 # syntax=docker/dockerfile:1
-
-EXPOSE 80
-
-# Copy the generated static files from the builder stage
-# to the Nginx server's default folder on the image
-COPY --from=builder /my-project/dist/my-angular-project /usr/share/nginx/html
