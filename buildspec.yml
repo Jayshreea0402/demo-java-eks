@@ -37,8 +37,8 @@ phases:
       # - sudo apt-get install -y docker-buildx-plugin docker-compose-plugin 
       # - sudo apt-get install docker -y 
       # - echo "installation successfull"
-      - sudo apt-get update -y
-      - sudo service docker start
+      #- sudo apt-get update -y
+      #- sudo service docker start
   build:
     commands:
       - sudo docker build -t demo-java .
