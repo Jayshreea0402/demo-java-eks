@@ -2,6 +2,8 @@ version: 0.2
 env:
   variables:
     ECR_REPO_NAME: java-demo-git
+    AWS_ACCOUNT_ID: 252007810724
+    AWS_REGION: us-east-1
 phases:
   install:
     runtime-versions:
@@ -11,7 +13,7 @@ phases:
       - mvn clean install
       - echo "Logging in to Amazon ECR..."
       - aws ecr-public get-login-password --region us-east-1 | docker login -u AWS --password-stdin public.ecr.aws
-      #- ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+      - ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
       - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
       - ECR_IMAGE_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:latest"
       - docker build -t java-tomcat:latest .
@@ -20,6 +22,7 @@ phases:
     commands:
       - echo "Pushing the Docker image to Amazon ECR..."
       - docker push ${ECR_IMAGE_URI}
+      - printf '[{"name":"angular-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
