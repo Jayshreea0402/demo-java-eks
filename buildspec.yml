@@ -38,6 +38,8 @@ phases:
       # - sudo dpkg -i containerd.io_X.Y.Z_amd64.deb
       #- sudo apt-get install -y containerd.io 
       # - sudo apt-get install -y docker-buildx-plugin docker-compose-plugin 
+      - sudo apt-get remove docker docker-engine docker.io containerd runc
+      - sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common 
       - sudo apt-get install docker -y 
        - echo "installation successfull"
       #- sudo apt-get update -y
