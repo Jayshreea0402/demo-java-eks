@@ -6,7 +6,7 @@ phases:
   install:
     runtime-versions:
       java: corretto11
- build:
+  build:
     commands:
       - mvn clean install
       - echo "Logging in to Amazon ECR..."
