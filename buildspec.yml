@@ -2,8 +2,9 @@ version: 0.2
 env:
   variables:
     ECR_REPO_NAME: java-demo-git
-    AWS_ACCOUNT_ID: 252007810724
-    AWS_REGION: us-east-1
+  parameter-store:
+    DOCKERHUB_TOKEN: java-cicd:DOCKERHUB_TOKEN
+    DOCKERHUB_USER: java-cicd:DOCKERHUB_USER
 phases:
   install:
     runtime-versions:
