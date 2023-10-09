@@ -7,8 +7,8 @@ phases:
   build:
     commands:
       - mvn clean install
-      - apt-get install docker -y 
-      - docker build -t my-java-app:latest .
+      # - apt-get install docker -y 
+      # - docker build -t my-java-app:latest .
 artifacts:
   files: '**/*'
   name: my-java-app
