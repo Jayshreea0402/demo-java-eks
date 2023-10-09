@@ -25,7 +25,7 @@ phases:
       # - sudo apt-get install git -y
       # - curl -fsSL https://get.docker.com -o get-docker.sh
       # - sudo sh get-docker.sh
-      - sudo apt-get update -y
+      - sudo apt-get update -y 
       - sudo apt-get install ca-certificates curl gnupg
       - sudo install -m 0755 -d /etc/apt/keyrings
       - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -33,7 +33,10 @@ phases:
       - echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
       #- sudo apt-get update -y
       #- sudo apt-get install -y docker-ce
-      - sudo apt-get install -y containerd.io 
+      - sudo apt-get install wget -y 
+      - sudo wget wget https://github.com/containerd/containerd/releases/download/vX.Y.Z/containerd.io_X.Y.Z_amd64.deb
+      - sudo dpkg -i containerd.io_X.Y.Z_amd64.deb
+      #- sudo apt-get install -y containerd.io 
       - sudo apt-get install -y docker-buildx-plugin docker-compose-plugin 
       - sudo apt-get install docker -y 
        - echo "installation successfull"
