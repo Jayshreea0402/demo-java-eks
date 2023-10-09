@@ -38,13 +38,13 @@ phases:
       #- sudo service docker start
   build:
     commands:
-      - docker build -t java-tomcat:latest .
-      - docker tag java-tomcat:latest ${ECR_IMAGE_URI}
+      - sudo docker build -t java-tomcat:latest .
+      - sudo docker tag java-tomcat:latest ${ECR_IMAGE_URI}
   post_build:
     commands:
       - echo "Pushing the Docker image to Amazon ECR..."
-      - docker push ${ECR_IMAGE_URI}
-      - printf '[{"name":"angular-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - sudo docker push ${ECR_IMAGE_URI}
+      - echo '[{"name":"angular-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
