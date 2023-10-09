@@ -19,19 +19,22 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.us-east-1.amazonaws.com
       - ECR_IMAGE_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
       - echo "installing docker"
-      - sudo apt-get update -y
-      - sudo apt-get install ca-certificates curl gnupg
-      - sudo install -m 0755 -d /etc/apt/keyrings
-      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-      - sudo chmod a+r /etc/apt/keyrings/docker.gpg
-      - echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-      #- sudo apt-get update -y
-      - sudo apt-get install -y docker-ce
-      - sudo apt-get install -y containerd.io 
-      - sudo apt-get install -y docker-buildx-plugin docker-compose-plugin 
-      - sudo apt-get install docker -y 
-      - echo "installation successfull"
-      - sudo apt-get update -y
+      - sudo apt-get install git -y
+      - curl -fsSL https://get.docker.com -o get-docker.sh
+      - sudo sh get-docker.sh
+      # - sudo apt-get update -y
+      # - sudo apt-get install ca-certificates curl gnupg
+      # - sudo install -m 0755 -d /etc/apt/keyrings
+      # - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+      # - sudo chmod a+r /etc/apt/keyrings/docker.gpg
+      # - echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      # #- sudo apt-get update -y
+      # #- sudo apt-get install -y docker-ce
+      # - sudo apt-get install -y containerd.io 
+      # - sudo apt-get install -y docker-buildx-plugin docker-compose-plugin 
+      # - sudo apt-get install docker -y 
+      # - echo "installation successfull"
+      # - sudo apt-get update -y
       - sudo service docker start
   build:
     commands:
