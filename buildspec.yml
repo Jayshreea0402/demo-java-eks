@@ -59,4 +59,4 @@ phases:
   #     - echo '[{"name":"java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
 artifacts:
   files:
-    - **/*
+    - '**/*'
