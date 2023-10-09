@@ -2,7 +2,7 @@ version: 0.2
 env:
   variables:
     ECR_REPO_NAME: java-demo-git
-  parameter-store:
+  secret-manager:
     DOCKERHUB_TOKEN: java-cicd:DOCKERHUB_TOKEN
     DOCKERHUB_USER: java-cicd:DOCKERHUB_USER
 phases:
