@@ -1,5 +1,5 @@
 # Use an official Tomcat runtime as the base image
-FROM tomcat:9-jre11
+FROM public.ecr.aws/docker/library/tomcat:jre11
 
 # Remove the default Tomcat webapps to replace them with your application
 RUN rm -rf /usr/local/tomcat/webapps/*
