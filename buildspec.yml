@@ -13,7 +13,8 @@ phases:
       - aws ecr-public get-login-password --region us-east-1 | docker login -u AWS --password-stdin public.ecr.aws
       - ECR_MAIN_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
       - aws ecr get-login-password --region ${AWS_REGION} | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
-
+      - sudo systemctl start docker
+      - sudo systemctl enable docker
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - docker build -t java-tomcat:latest .
       - docker tag java-tomcat:latest ${ECR_IMAGE_URI}
