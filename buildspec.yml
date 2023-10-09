@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: openjdk11
+  build:
+    commands:
+      - mvn clean install
+      - docker build -t my-java-app:latest .
+artifacts:
+  files: '**/*'
+  name: my-java-app
