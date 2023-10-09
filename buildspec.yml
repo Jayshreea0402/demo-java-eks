@@ -22,8 +22,8 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.us-east-1.amazonaws.com
       - ECR_IMAGE_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
       - echo "building docker image..."
-      - docker build -t demo-java . 
-      - docker tag demo-java:latest $ECR_IMAGE_URI/$ECR_REPO_NAME:latest
+      - docker build -t . 
+      #- docker tag demo-java:latest $ECR_IMAGE_URI/$ECR_REPO_NAME:latest
       - echo "pushing image to the ecr..."
       - docker push $ECR_IMAGE_URI/$ECR_REPO_NAME:latest
       - echo "image pushed to the ecr"
