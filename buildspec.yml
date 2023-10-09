@@ -12,6 +12,9 @@ phases:
   pre_build:
     commands:
       - mvn clean install
+      - mvn package 
+      - mkdir -p pkg
+      - mv target/demo.war pkg/demo.war
       - echo "Logging in to Amazon ECR..."
       - aws ecr-public get-login-password --region us-east-1 | docker login -u AWS --password-stdin public.ecr.aws
       # - ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
@@ -22,7 +25,7 @@ phases:
       - sudo apt-get install git -y
       - curl -fsSL https://get.docker.com -o get-docker.sh
       - sudo sh get-docker.sh
-      # - sudo apt-get update -y
+       - sudo apt-get update -y
       # - sudo apt-get install ca-certificates curl gnupg
       # - sudo install -m 0755 -d /etc/apt/keyrings
       # - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -35,11 +38,11 @@ phases:
       # - sudo apt-get install docker -y 
       # - echo "installation successfull"
       # - sudo apt-get update -y
-      #- sudo service docker start
+      - sudo service docker start
   build:
     commands:
-      - sudo docker build -t java-tomcat:latest .
-      - sudo docker tag java-tomcat:latest ${ECR_IMAGE_URI}
+      - sudo docker build -t demo-java .
+      - sudo docker tag demo-java:latest ${ECR_IMAGE_URI}
   post_build:
     commands:
       - echo "Pushing the Docker image to Amazon ECR..."
