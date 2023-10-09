@@ -35,7 +35,7 @@ phases:
       # - sudo apt-get install docker -y 
       # - echo "installation successfull"
       # - sudo apt-get update -y
-      - sudo service docker start
+      #- sudo service docker start
   build:
     commands:
       - docker build -t java-tomcat:latest .
