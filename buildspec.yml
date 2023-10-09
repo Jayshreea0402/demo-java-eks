@@ -15,8 +15,8 @@ phases:
       - aws ecr get-login-password --region ${AWS_REGION} | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
 
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
-      - docker build -t my-java-app:latest .
-      - docker tag my-java-app:latest ${ECR_IMAGE_URI}
+      - docker build -t java-tomcat:latest .
+      - docker tag java-tomcat:latest ${ECR_IMAGE_URI}
   post_build:
     commands:
       - echo "Pushing the Docker image to Amazon ECR..."
