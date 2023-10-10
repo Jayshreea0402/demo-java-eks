@@ -1,5 +1,6 @@
+# syntax=docker/dockerfile:1
 # # Use an official Tomcat runtime as the base image
-FROM public.ecr.aws/docker/library/tomcat:jre11
+FROM public.ecr.aws/docker/library/tomcat:jre11 AS builder
 
 # # Remove the default Tomcat webapps to replace them with your application
 RUN rm -rf /usr/local/tomcat/webapps/*
@@ -18,4 +19,6 @@ EXPOSE 8080
 
 # # Start Tomcat when the container starts
 CMD ["catalina.sh", "run"]
+
+COPY --from=builder *.war /usr/local/tomcat/webapps/
 # syntax=docker/dockerfile:1
