@@ -22,33 +22,14 @@ phases:
       - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
       - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.us-east-1.amazonaws.com
       - ECR_IMAGE_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
-      - sudo systemctl start docker
       - echo "building docker image..."
-      - docker build -t demo-java .
-      #- docker tag demo-java:latest $ECR_IMAGE_URI/$ECR_REPO_NAME:latest
+      - docker build -t java-demo-git:latest .
+      - docker tag demo-java:latest ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
-      - docker push $ECR_IMAGE_URI/$ECR_REPO_NAME:latest
+      - docker push ${ECR_IMAGE_URI}
       - echo "image pushed to the ecr"
-      #- echo "installing docker"
-      # - sudo apt-get install git -y
-      # - curl -fsSL https://get.docker.com -o get-docker.sh
-      # - sudo sh get-docker.sh
-      #- sudo apt-get update -y 
-      # - sudo apt-get install ca-certificates curl gnupg
-      # - sudo install -m 0755 -d /etc/apt/keyrings
-      # - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-      # - sudo chmod a+r /etc/apt/keyrings/docker.gpg
-      # - echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-      #- sudo apt-get update -y
-      #- sudo apt-get install -y docker-ce
-      # - sudo apt-get install wget -y 
-      # - sudo wget https://github.com/containerd/containerd/releases/download/vX.Y.Z/containerd.io_X.Y.Z_amd64.deb
-      # - sudo dpkg -i containerd.io_X.Y.Z_amd64.deb
-      #- sudo apt-get install -y containerd.io 
-      # - sudo apt-get install -y docker-buildx-plugin docker-compose-plugin 
-      #- sudo apt-get remove docker docker-engine docker.io containerd runc
-      #- sudo service docker start
-  # build:
+      - echo '[{"name":"java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+   # build:
   #   commands:
   #     - docker build -t demo-java . 
   #     #- docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
@@ -61,4 +42,4 @@ phases:
   #     - echo '[{"name":"java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
 artifacts:
   files:
-    - '**/*'
+    - imagedefinitions.json
