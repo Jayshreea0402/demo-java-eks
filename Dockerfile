@@ -3,7 +3,7 @@ FROM public.ecr.aws/docker/library/tomcat:jre11
 
 # # Remove the default Tomcat webapps to replace them with your application
 RUN rm -rf /usr/local/tomcat/webapps/*
-RUN COPY **/*.war /usr/local/tomcat/webapps/
+RUN COPY **/*.war /usr/local/tomcat/webapps/*
 #RUN rm -rf /var/lib/apt/lists/* && apt-get clean && apt-get purge
 # RUN mvn clean package
 # COPY . .
