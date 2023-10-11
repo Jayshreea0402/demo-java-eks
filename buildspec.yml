@@ -20,7 +20,7 @@ phases:
       #- echo "$DOCKERHUB_TOKEN" | docker login --username $DOCKERHUB_USER --password-stdin
       - aws ecr-public get-login-password --region us-east-1 | docker login -u AWS --password-stdin public.ecr.aws
       # - ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-      - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
+      - ECR_MAIN_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8}"
       #"252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
@@ -31,14 +31,14 @@ phases:
       - echo "building docker image..."
       #- sudo systemctl start docker
       - docker build -t $IMAGE_REPO_NAME:latest .
-      - docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest 
+      - docker tag my-java-app:latest ${ECR_IMAGE_URI}
 
       
       # - docker build -t  my-java:latest .
       # - docker tag my-java:latest ${ECR_IMAGE_URI}
       #- docker tag my-java:latest ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
-      - docker push ${ECR_IMAGE_URI}/$ECR_REPO_NAME:latest
+      - docker push ${ECR_IMAGE_URI}
       - echo "image pushed to the ecr"
       - echo '[{"name":"my-java","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
