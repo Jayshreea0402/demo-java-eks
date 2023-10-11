@@ -5,9 +5,9 @@ RUN rm -rf /var/run/docker.pid
 RUN mvn  package
 # syntax=docker/dockerfile:1
 # # Use an official Tomcat runtime as the base image
-FROM public.ecr.aws/docker/library/tomcat:jre11 
+FROM public.ecr.aws/docker/library/tomcat:jre11
 EXPOSE 8080
-COPY --from=build /my-java/dist/my-java-app /usr/local/tomcat/webapps/
+COPY --from=builder /my-java/ /usr/local/tomcat/webapps/
 # RUN git clone github.com/Jayshreea0402/demo-java-eks
 # WORKDIR cd /demo-java-eks
 # RUN go build -o . 
