@@ -20,12 +20,14 @@ phases:
       # - mv target/demo.war pkg/demo.war
       - echo "Logging in to Amazon ECR..."
       - aws ecr-public get-login-password --region us-east-1 | docker login -u AWS --password-stdin public.ecr.aws
+      - - ECR_MAIN_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com"
+      - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       #- aws ecr-public get-login-password --region ap-south-1 | docker login -u AWS --password-stdin public.ecr.aws
       #- aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
       #- docker login --username $DOCKERHUB_USER --password -stdin
       #- aws ecr-public get-login-password --region us-east-1 | - docker login -u AWS --password-stdin public.ecr.aws
       # - ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-      - ECR_MAIN_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com"
+      
       #- ECR_MAIN_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
       - ECR_IMAGE_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com/$ECR_REPO_NAME:latest"
