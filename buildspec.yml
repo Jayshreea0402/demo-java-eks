@@ -19,7 +19,8 @@ phases:
       # - mkdir -p pkg
       # - mv target/demo.war pkg/demo.war
       - echo "Logging in to Amazon ECR..."
-      - aws ecr-public get-login-password --region ap-south-1 | docker login -u AWS --password-stdin public.ecr.aws
+      #- aws ecr-public get-login-password --region ap-south-1 | docker login -u AWS --password-stdin public.ecr.aws
+      - aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com
       #- docker login --username $DOCKERHUB_USER --password -stdin
       #- aws ecr-public get-login-password --region us-east-1 | - docker login -u AWS --password-stdin public.ecr.aws
       # - ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
