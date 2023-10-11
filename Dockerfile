@@ -1,4 +1,4 @@
-FROM  maven:3.5.0-jdk-8-alpine AS builder
+FROM  public.ecr.aws/docker/library/maven:3.9-ibmjava-8 AS builder
 COPY . /my-java
 WORKDIR /my-java
 RUN rm -rf /var/run/docker.pid
