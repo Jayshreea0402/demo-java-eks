@@ -30,11 +30,15 @@ phases:
       #- echo "time-out over "
       - echo "building docker image..."
       #- sudo systemctl start docker
-      - docker build -t  my-java:latest .
-      - docker tag my-java:latest ${ECR_IMAGE_URI}
+      - docker build -t $IMAGE_REPO_NAME:latest .
+      - docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest 
+
+      
+      # - docker build -t  my-java:latest .
+      # - docker tag my-java:latest ${ECR_IMAGE_URI}
       #- docker tag my-java:latest ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
-      - docker push ${ECR_IMAGE_URI}
+      - docker push ${ECR_IMAGE_URI}/$ECR_REPO_NAME:latest
       - echo "image pushed to the ecr"
       - echo '[{"name":"my-java","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
