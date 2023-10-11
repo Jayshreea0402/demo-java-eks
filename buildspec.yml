@@ -32,8 +32,8 @@ phases:
       #- timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
       #- echo "time-out over "
       - echo "building docker image..."
-      - docker build -t my-java-app:latest .
-      - docker tag my-java-app:latest ${ECR_IMAGE_URI} 
+      - docker build -t java-demo-git:latest .
+      - docker tag java-demo-git:latest ${ECR_IMAGE_URI} 
       #- docker tag my-java-app:latest ${ECR_IMAGE_URI}
 
       
@@ -43,7 +43,7 @@ phases:
       - echo "pushing image to the ecr..."
       - docker push my-java-app:latest #${ECR_IMAGE_URI}
       - echo "image pushed to the ecr"
-      - echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
   #   commands:
   #     - docker build -t demo-java . 
