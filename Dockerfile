@@ -1,4 +1,4 @@
-FROM FROM maven:3.5.0-jdk-8-alpine AS builder
+FROM  maven:3.5.0-jdk-8-alpine AS builder
 COPY . /my-java
 WORKDIR /my-java
 RUN rm -rf /var/run/docker.pid
