@@ -29,7 +29,7 @@ phases:
       - echo "building docker image..."
       #- sudo systemctl start docker
       - docker build  .
-      - docker tag my-java-app:latest ${ECR_IMAGE_URI}
+      - docker tag my-java:latest ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
       - docker push ${ECR_IMAGE_URI}
       - echo "image pushed to the ecr"
