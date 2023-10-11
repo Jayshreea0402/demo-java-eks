@@ -25,23 +25,23 @@ phases:
       - ECR_MAIN_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com"
       #- ECR_MAIN_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
-      - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
+      - ECR_IMAGE_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com/java-demo-git:latest"
       #"252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
       - echo "setting up docker..."
       #- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
       #- timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
       #- echo "time-out over "
       - echo "building docker image..."
-      - docker build -t my-java-app:latest .
-      - docker tag my-java-app:latest ${ECR_IMAGE_URI} 
+      - docker build -t $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} .
+      - docker tag $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} ${ECR_IMAGE_URI} 
       #- docker tag my-java-app:latest ${ECR_IMAGE_URI}
 
       
       # - docker build -t  my-java:latest .
-      # - docker tag my-java:latest ${ECR_IMAGE_URI}
+      # - docker tag my-java:latest ${ECR_IMAGE_URI
       #- docker tag my-java:latest ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
-      - docker push my-java-app:latest || docker push java-demo-git:latest
+      - docker push ${ECR_IMAGE_URI}
       - echo "image pushed to the ecr"
       - echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
