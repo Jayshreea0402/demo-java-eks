@@ -44,7 +44,7 @@ phases:
       # - docker tag my-java:latest ${ECR_IMAGE_URI
       #- docker tag my-java:latest ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
-      - docker push ${ECR_IMAGE_URI}
+      - docker push $ECR_REPO_NAME:latest
       - echo "image pushed to the ecr"
       - echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
