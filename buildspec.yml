@@ -33,7 +33,7 @@ phases:
       #- echo "time-out over "
       - echo "building docker image..."
       #- sudo systemctl start docker
-      - docker build -t $IMAGE_REPO_NAME:latest .
+      - docker build -t java-app:latest .
       - docker tag my-java-app:latest ${ECR_IMAGE_URI}
 
       
