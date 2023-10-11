@@ -49,7 +49,7 @@ phases:
       # - echo "pushing image to the ecr..."
       # - docker push java-demo-git:latest
       # - echo "image pushed to the ecr"
-      - echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      #- echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
   #   commands:
   #     - docker build -t demo-java . 
