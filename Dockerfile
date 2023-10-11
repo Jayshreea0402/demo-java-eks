@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/maven:3.8.3-ibmjava-8 AS builder
+FROM FROM maven:3.5.0-jdk-8-alpine AS builder
 #COPY https://github.com/Jayshreea0402/demo-java-eks/blob/master/pom.xml /java-demo/pom.xml
 RUN mvn  package
 # syntax=docker/dockerfile:1
