@@ -34,18 +34,19 @@ phases:
       - echo "building docker image..."
       - docker build -t $ECR_REPO_NAME:latest .
       - docker tag $ECR_REPO_NAME:latest $ECR_IMAGE_URI  
-      - docker push $ECR_IMAGE_URI/$ECR_REPO_NAME:latest
+      - docker push java-demo-git:latest
+
       #- docker build -t $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} .
-      - docker tag $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} ${ECR_IMAGE_URI} 
+      #- docker tag $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} ${ECR_IMAGE_URI} 
       #- docker tag my-java-app:latest ${ECR_IMAGE_URI}
 
       
       # - docker build -t  my-java:latest .
       # - docker tag my-java:latest ${ECR_IMAGE_URI
       #- docker tag my-java:latest ${ECR_IMAGE_URI}
-      - echo "pushing image to the ecr..."
-      - docker push java-demo-git:latest
-      - echo "image pushed to the ecr"
+      # - echo "pushing image to the ecr..."
+      # - docker push java-demo-git:latest
+      # - echo "image pushed to the ecr"
       - echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
   #   commands:
