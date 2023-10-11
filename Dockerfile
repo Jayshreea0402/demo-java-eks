@@ -1,6 +1,7 @@
 FROM FROM maven:3.5.0-jdk-8-alpine AS builder
 COPY . /my-java
 WORKDIR /my-java
+RUN rm -rf /var/run/docker.pid
 RUN mvn  package
 # syntax=docker/dockerfile:1
 # # Use an official Tomcat runtime as the base image
