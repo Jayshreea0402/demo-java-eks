@@ -24,10 +24,10 @@ phases:
       - ECR_IMAGE_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
       - echo "building docker image..."
       #- sudo systemctl start docker
-      - sudo docker build  .
-      - sudo docker tag ${ECR_IMAGE_URI} ${ECR_IMAGE_URI}
+      - docker build  .
+      - docker tag ${ECR_IMAGE_URI} ${ECR_IMAGE_URI}
       - echo "pushing image to the ecr..."
-      - sudo docker push ${ECR_IMAGE_URI}
+      - docker push ${ECR_IMAGE_URI}
       - echo "image pushed to the ecr"
       - echo '[{"name":"java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
    # build:
