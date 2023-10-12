@@ -31,7 +31,7 @@ phases:
       - echo "pushing image to ECR"
       - docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
-      - - printf '[{"name":"angular-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
