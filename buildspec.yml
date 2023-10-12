@@ -27,6 +27,7 @@ phases:
       - docker build -t java-demo-git .
       - docker tag java-demo-git:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
   post_build:
+    commands:
       - echo "pushing image to ECR"
       - docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
