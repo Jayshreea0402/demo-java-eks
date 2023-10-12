@@ -13,57 +13,17 @@ phases:
       java: corretto11
   pre_build:
     commands:
-      #- mvn package
-      # - mvn clean install
-      # - mvn package 
-      # - mkdir -p pkg
-      # - mv target/demo.war pkg/demo.war
       - echo "Logging in to Amazon ECR..."
-      - aws ecr-public get-login-password --region us-east-1 #| docker login -u AWS --password-stdin public.ecr.aws
+      - aws ecr-public get-login-password --region us-east-1 | docker login -u AWS --password-stdin public.ecr.aws
+      - echo "logging to ECR"
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
       - ECR_MAIN_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com"
-      - aws ecr get-login-password --region us-east-1 #| docker login -u AWS --password-stdin ${ECR_MAIN_URI}
-      #- aws ecr-public get-login-password --region ap-south-1 | docker login -u AWS --password-stdin public.ecr.aws
-      #- aws ecr-public get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
-      #- docker login --username $DOCKERHUB_USER --password -stdin
-      #- aws ecr-public get-login-password --region us-east-1 | - docker login -u AWS --password-stdin public.ecr.aws
-      # - ECR_MAIN_URI= "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-      
-      #- ECR_MAIN_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-      #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       - ECR_IMAGE_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com/$ECR_REPO_NAME:latest"
-      #"252007810724.dkr.ecr.us-east-1.amazonaws.com/${ECR_REPO_NAME}:latest"
-      #- echo "setting up docker..."
-      #- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
-      #- timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
-      #- echo "time-out over "
       - echo "building docker image..."
-      - docker build -t $ECR_REPO_NAME:latest .
-      - docker tag $ECR_REPO_NAME:latest $ECR_IMAGE_URI  
-      - docker push java-demo-git:latest
-
-      #- docker build -t $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} .
-      #- docker tag $ECR_REPO_NAME:${CODEBUILD_RESOLVED_SOURCE_VERSION:0:8} ${ECR_IMAGE_URI} 
-      #- docker tag my-java-app:latest ${ECR_IMAGE_URI}
-
-      
-      # - docker build -t  my-java:latest .
-      # - docker tag my-java:latest ${ECR_IMAGE_URI
-      #- docker tag my-java:latest ${ECR_IMAGE_URI}
-      # - echo "pushing image to the ecr..."
-      # - docker push java-demo-git:latest
-      # - echo "image pushed to the ecr"
-      #- echo '[{"name":"my-java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
-   # build:
-  #   commands:
-  #     - docker build -t demo-java . 
-  #     #- docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-  #     #- sudo docker tag demo-java:latest ${ECR_IMAGE_URI}
-  # post_build:
-  #   commands:
-  #     - echo "Pushing the Docker image to Amazon ECR..."
-  #     - docker push 252007810724.dkr.ecr.us-east-1.amazonaws.com/ECR_REPO_NAME:latest
-  #     #- sudo docker push ${ECR_IMAGE_URI}
-  #     - echo '[{"name":"java-app","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - docker build -t java-demo-git .
+      - docker tag java-demo-git:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
+      - docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
 artifacts:
   files:
     - imagedefinitions.json
