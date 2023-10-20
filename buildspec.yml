@@ -24,7 +24,8 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr-public get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-2.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m6r4f3q8
+      #- aws ecr-public get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-2.amazonaws.com
       - echo "logging to ECR"
       #- aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
       - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com"
@@ -34,14 +35,16 @@ phases:
     commands: 
       - ECR_IMAGE_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com/$ECR_REPO_NAME:latest"
       - echo "building docker image..."
-      - docker build -t java-demo-git .
+      - docker build -t java-demo-eks .
+      - docker tag java-demo-eks:latest public.ecr.aws/m6r4f3q8/java-demo-eks:latest
       #- docker tag java-demo-git:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
-      - docker tag java-demo-git:latest 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
+      #- docker tag java-demo-git:latest 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
   post_build:
     commands:
       - echo "pushing image to ECR"
       #- docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
-      - docker push 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
+      - docker push public.ecr.aws/m6r4f3q8/java-demo-eks:latest
+      #- docker push 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
       - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
 artifacts:
