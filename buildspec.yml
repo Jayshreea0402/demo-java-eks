@@ -40,7 +40,7 @@ phases:
       - docker build -t java-demo-eks .
       - docker tag java-demo-eks:latest public.ecr.aws/m6r4f3q8/java-demo-eks:latest
       #- git checkout master
-      #- chmod +x check_changes.sh
+      - chmod +x check_changes.sh
       - ./check_changes.sh
       - if [ $? -eq 0 ]; then
         cd terraform_directory
