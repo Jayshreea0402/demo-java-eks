@@ -31,12 +31,15 @@ phases:
       - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       - echo "Login successfull..."
+    
   build:
     commands: 
       - ECR_IMAGE_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com/$ECR_REPO_NAME:latest"
       - echo "building docker image..."
       - docker build -t java-demo-eks .
       - docker tag java-demo-eks:latest public.ecr.aws/m6r4f3q8/java-demo-eks:latest
+      - terraform init
+      - terraform apply -auto-approve
       #- docker tag java-demo-git:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
       #- docker tag java-demo-git:latest 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
   post_build:
