@@ -11,14 +11,19 @@ phases:
   install:
     runtime-versions:
       java: corretto11
+    commands:
+      - wget https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
+      - unzip terraform_1.0.0_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+      - terraform --version
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-1.amazonaws.com
       - echo "logging to ECR"
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
-      - ECR_MAIN_URI="252007810724.dkr.ecr.us-east-1.amazonaws.com"
-      - aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
+      #- aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
+      - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-1.amazonaws.com"
+      #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       - echo "Login successfull..."
   build:
     commands: 
