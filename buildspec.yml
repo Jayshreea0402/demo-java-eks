@@ -4,9 +4,11 @@ env:
     ECR_REPO_NAME: java-demo-git
     AWS_ACCOUNT_ID: 252007810724
     AWS_REGION: ap-south-1
-  secret-manager:
-    DOCKERHUB_TOKEN: java-cicd:DOCKERHUB_TOKEN
-    DOCKERHUB_USER: java-cicd:DOCKERHUB_USER
+    DOCKERHUB_TOKEN: dckr_pat_Xyc8Eea5cssMJLjrWKhT0BFG08M
+    DOCKERHUB_USER: jayshreea0402
+  # secret-manager:
+  #   DOCKERHUB_TOKEN: java-cicd:DOCKERHUB_TOKEN
+  #   DOCKERHUB_USER: java-cicd:DOCKERHUB_USER
 phases:
   install:
     runtime-versions:
@@ -22,7 +24,8 @@ phases:
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-1.amazonaws.com
+      - aws ecr get-login-password --region eu-west-2 
+      - docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-2.amazonaws.com
       - echo "logging to ECR"
       #- aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
       - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com"
