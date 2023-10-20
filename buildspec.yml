@@ -43,7 +43,6 @@ phases:
       - chmod +x check_changes.sh
       - ./check_changes.sh
       - if [ $? -eq 0 ]; then
-        cd terraform_directory
         terraform init
         terraform apply -auto-approve
         else
