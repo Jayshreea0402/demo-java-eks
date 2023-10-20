@@ -8,7 +8,7 @@ TF_EXTENSIONS='tf'
 
 # Loop through Terraform files and check for changes
 for EXTENSION in "${TF_EXTENSIONS[@]}"; do
-    if git diff --quiet == "*.$EXTENSION"; then
+    if git diff --quiet -- "*.$EXTENSION"; then
         echo "No changes detected in *.$EXTENSION files."
     else
         echo "Changes detected in *.$EXTENSION files."
