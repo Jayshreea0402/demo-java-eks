@@ -4,7 +4,7 @@
 CHANGED=false
 
 # List Terraform configuration file extensions
-TF_EXTENSIONS= (tf) #(tf tfvars)
+TF_EXTENSIONS=(tf) 
 
 # Loop through Terraform files and check for changes
 for EXTENSION in "${TF_EXTENSIONS[@]}"; do
