@@ -4,8 +4,7 @@ env:
     ECR_REPO_NAME: java-demo-git
     AWS_ACCOUNT_ID: 252007810724
     AWS_REGION: ap-south-1
-    DOCKERHUB_TOKEN: dckr_pat_Xyc8Eea5cssMJLjrWKhT0BFG08M
-    DOCKERHUB_USER: jayshreea0402
+
   # secret-manager:
   #   DOCKERHUB_TOKEN: java-cicd:DOCKERHUB_TOKEN
   #   DOCKERHUB_USER: java-cicd:DOCKERHUB_USER
