@@ -31,7 +31,7 @@ phases:
       - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       - echo "Login successfull..."
-      - cp deployment.yaml $CODEBUILD_SRC_DIR
+      #- cp deployment.yaml $CODEBUILD_SRC_DIR
     
   build:
     commands: 
