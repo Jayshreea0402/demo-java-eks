@@ -4,7 +4,7 @@
 CHANGED=false
 
 # List Terraform configuration file extensions
-TF_EXTENSIONS=(tf) 
+TF_EXTENSIONS=(tf)
 
 # Loop through Terraform files and check for changes
 for EXTENSION in "${TF_EXTENSIONS[@]}"; do
@@ -18,7 +18,7 @@ done
 
 # Exit with status code indicating whether changes were detected
 if [ "$CHANGED" = true ]; then
-    exit 0
+    exit 0  # Changes detected, exit with status code 1 (failure)
 else
-    exit 1
+    exit 1  # No changes detected, exit with status code 0 (success)
 fi
