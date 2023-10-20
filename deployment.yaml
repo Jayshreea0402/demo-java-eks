@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-tomcat-app
+  labels:
+    app: java-web-app
+spec:
+  replicas: 3 # Adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: java-web-app
+  template:
+    metadata:
+      labels:
+        app: java-web-app
+    spec:
+      containers:
+        - name: java-app-container
+          image: public.ecr.aws/your-account/your-image:latest # Replace with your ECR image URL
+          ports:
+            - containerPort: 80 # The port your web app listens on
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-app-service
+spec:
+  selector:
+    app: java-web-app
+  ports:
+    - protocol: TCP
+      port: 80 # The port through which your service will be accessible
+      targetPort: 80
+  type: LoadBalancer # Use 'LoadBalancer' if you want to expose your service externally
+
