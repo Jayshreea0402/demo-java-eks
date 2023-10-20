@@ -12,22 +12,25 @@ phases:
     runtime-versions:
       java: corretto11
     commands:
-      - wget https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
-      - unzip terraform_1.0.0_linux_amd64.zip
-      - mv terraform /usr/local/bin/
-      - terraform --version
+        - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+        - sudo apt update && sudo apt install terraform
+      # - wget https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip
+      # - unzip terraform_1.0.0_linux_amd64.zip
+      # - mv terraform /usr/local/bin/
+      # - terraform --version
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-1.amazonaws.com
+      - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.eu-west-1.amazonaws.com
       - echo "logging to ECR"
       #- aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
-      - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-1.amazonaws.com"
+      - ECR_MAIN_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       - echo "Login successfull..."
   build:
     commands: 
-      - ECR_IMAGE_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com/$ECR_REPO_NAME:latest"
+      - ECR_IMAGE_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com/$ECR_REPO_NAME:latest"
       - echo "building docker image..."
       - docker build -t java-demo-git .
       #- docker tag java-demo-git:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
