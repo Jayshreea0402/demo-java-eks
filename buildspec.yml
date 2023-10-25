@@ -35,13 +35,13 @@ phases:
   build:
     commands: 
       - chmod +x check_changes.sh
-      - ./check_changes.sh
-      - if [ $? -eq 0 ]; then
-        terraform init
-        terraform apply -auto-approve
-        else
-          echo "No changes in Terraform templates. Skipping Terraform deployment."
-        fi
+      # - ./check_changes.sh
+      # - if [ $? -eq 0 ]; then
+        - terraform init
+        - terraform apply -auto-approve
+        # else
+        #   echo "No changes in Terraform templates. Skipping Terraform deployment."
+        # fi
       - ECR_IMAGE_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com/$ECR_REPO_NAME:latest"
       - echo "building docker image..."
       - docker build -t java-demo-eks .
