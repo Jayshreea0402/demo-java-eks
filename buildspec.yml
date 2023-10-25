@@ -36,13 +36,13 @@ phases:
     commands: 
       #- chmod +x check_changes.sh
       # - ./check_changes.sh
-      - if [ -n "$(git diff HEAD^ -- '*.tf')" ]; then
-          echo "Changes in .tf files detected. Running Terraform..."
+      - |
+        if git diff --name-only HEAD~1..HEAD | grep -q 'main.tf'; then
+          echo "Changes in main.tf detected. Running Terraform..."
           terraform init
           terraform apply -auto-approve
         else 
-          echo "No changes in .tf files. Skipping Terraform deployment."
-          terraform init
+          echo "No changes in main.tf. Skipping Terraform deployment."
         fi
       # - terraform init
       # - terraform apply -auto-approve
