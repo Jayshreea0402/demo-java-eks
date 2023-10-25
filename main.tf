@@ -16,7 +16,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = pmg-deploy 
+  cluster_name = pmg-eks-cicd
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
