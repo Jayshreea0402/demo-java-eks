@@ -88,7 +88,7 @@ provider "kubernetes-alpha" {
 }
 
 # Example: Including a Kubernetes Deployment manifest
-resource "kubernetes_manifest" "webapp" {
+resource "kubernetes_manifest" "deployment" {
   provider = kubernetes-alpha
 
   content = file("${path.module}/deployment.yaml")
