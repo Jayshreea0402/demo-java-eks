@@ -44,6 +44,7 @@ module "vpc" {
     "kubernetes.io/role/internal-elb"             = 1
   }
 }
+}
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -114,5 +115,5 @@ resource "aws_eks_addon" "ebs-csi" {
 
 resource "kubernetes_manifest" "deployment.yaml" {
   namespace = kubernetes_namespace.my_namespace.metadata[0].name
-  content = file("${path.module}/\deployment.yaml")
+  content = file("${path.module}/deployment.yaml")
 }
