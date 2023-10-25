@@ -91,5 +91,5 @@ provider "kubernetes-alpha" {
 resource "kubernetes_manifest" "deployment" {
   provider = kubernetes-alpha
 
-  content = file("${path.module}/deployment.yaml")
+  manifest = file("${path.module}/deployment.yaml")
 }
