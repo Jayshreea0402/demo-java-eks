@@ -82,14 +82,3 @@ module "eks" {
     }
   }
 }
-
-provider "kubernetes-alpha" {
-  config_path = "~/.kube/config"
-}
-
-# Example: Including a Kubernetes Deployment manifest
-resource "kubernetes_manifest" "deployment" {
-  provider = kubernetes-alpha
-
-  manifest = file("${path.module}/deployment.yaml")
-}
