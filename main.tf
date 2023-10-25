@@ -17,7 +17,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   cluster_name = pmg-deploy 
-
+}
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
@@ -83,7 +83,7 @@ module "eks" {
     }
   }
 }
-}
+
 
 
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
