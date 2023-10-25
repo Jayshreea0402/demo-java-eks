@@ -16,7 +16,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = java-cicd
+  cluster_name = pmg-deploy 
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -43,7 +43,6 @@ module "vpc" {
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"             = 1
   }
-}
 }
 
 module "eks" {
@@ -111,9 +110,4 @@ resource "aws_eks_addon" "ebs-csi" {
     "eks_addon" = "ebs-csi"
     "terraform" = "true"
   }
-}
-
-resource "kubernetes_manifest" "deployment.yaml" {
-  namespace = kubernetes_namespace.my_namespace.metadata[0].name
-  content = file("${path.module}/deployment.yaml")
 }
