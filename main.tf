@@ -83,6 +83,7 @@ module "eks" {
     }
   }
 }
+}
 
 
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
