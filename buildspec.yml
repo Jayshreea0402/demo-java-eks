@@ -34,7 +34,7 @@ phases:
     
   build:
     commands: 
-      - chmod +x check_changes.sh
+      #- chmod +x check_changes.sh
       # - ./check_changes.sh
       # - if [ $? -eq 0 ]; then
       - terraform init
