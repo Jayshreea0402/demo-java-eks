@@ -44,7 +44,7 @@ phases:
         # fi
       - ECR_IMAGE_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com/$ECR_REPO_NAME:latest"
       - echo "building docker image..."
-      # - docker build -t java-demo-eks .
+      - docker build .
       # - docker tag java-demo-eks:latest public.ecr.aws/m6r4f3q8/java-demo-eks:latest
       #- git checkout master
       # - terraform init
@@ -59,8 +59,8 @@ phases:
       #- docker push 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
       - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
-      - aws eks update-kubeconfig --name pmg-deploy --region us-east-2
+      - aws eks update-kubeconfig --name pmg-deploy-eks --region ap-south-1
       - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
 artifacts:
   files:
-    - imagedefinitions.json, deployment.yaml
+    - imagedefinitions.json

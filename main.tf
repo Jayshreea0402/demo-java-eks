@@ -15,14 +15,14 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "pmg-deploy" # Enclose it in double quotes as a string
+  cluster_name = "pmg-deploy-eks" # Enclose it in double quotes as a string
 }
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
-  name = "education-vpc"
+  name = "vpc-pmg"
 
   cidr = "10.0.0.0/16"
   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
