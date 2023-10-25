@@ -37,8 +37,8 @@ phases:
       - chmod +x check_changes.sh
       # - ./check_changes.sh
       # - if [ $? -eq 0 ]; then
-        - terraform init
-        - terraform apply -auto-approve
+      - terraform init
+      - terraform apply -auto-approve
         # else
         #   echo "No changes in Terraform templates. Skipping Terraform deployment."
         # fi

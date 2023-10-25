@@ -16,7 +16,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = pmg-eks-cicd
+  cluster_name = java-cicd
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
@@ -110,4 +110,9 @@ resource "aws_eks_addon" "ebs-csi" {
     "eks_addon" = "ebs-csi"
     "terraform" = "true"
   }
+}
+
+resource "kubernetes_manifest" "deployment.yaml" {
+  namespace = kubernetes_namespace.my_namespace.metadata[0].name
+  content = file("${path.module}/\deployment.yaml")
 }
