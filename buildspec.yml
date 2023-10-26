@@ -31,7 +31,7 @@ phases:
     commands: 
       - echo "creating eks cluster if needed..."
       - |
-        if git diff --name-only HEAD~1..HEAD -- **.tf | grep -q '^+'; then
+        if git diff --name-only HEAD~1..HEAD -- main.tf | grep -q '^+'; then
           echo "Changes in main.tf detected. Running Terraform..."
           terraform init
           terraform apply -auto-approve
