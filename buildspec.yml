@@ -68,8 +68,10 @@ phases:
       #- docker push 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
       - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - kubectl config get-contexts
       - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
       - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
+      - kubectl get deployments
 artifacts:
   files:
     - imagedefinitions.json
