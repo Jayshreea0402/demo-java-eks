@@ -54,7 +54,7 @@ phases:
       - ECR_IMAGE_URI="252007810724.dkr.ecr.eu-west-2.amazonaws.com/$ECR_REPO_NAME:latest"
       - echo "building docker image..."
       - docker build -t java-demo-git .
-      - docker tag java-demo-git:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
+      - docker tag java-demo-git:latest public.ecr.aws/m6r4f3q8/java-demo-git:latest
       #- git checkout master
       # - terraform init
       # - terraform apply -auto-approve
