@@ -32,6 +32,10 @@ phases:
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       #- aws ecr get-login-password --region us-east-1 | docker login -u AWS --password-stdin ${ECR_MAIN_URI}
       - echo "Login successfull..."
+      - echo "Updating aws-auth ConfigMap for EKS cluster"
+      - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
+      - kubectl apply -f configmap.yaml --context pmg-java3333
+      #- kubectl edit -n kube-system configmap/aws-auth --context pmg-java3333
       #- cp deployment.yaml $CODEBUILD_SRC_DIR
     
   build:
@@ -69,10 +73,6 @@ phases:
       - echo "successfully pushed image... check ECR repo"
       - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
       #- kubectl edit configmap aws-auth -n kube-system
-      - kubectl edit -n kube-system configmap/aws-auth --context pmg-java3333
-      - cat configmap.yaml >> kubectl edit -n kube-system configmap/aws-auth --context pmg-java3333
-      - kubectl config get-contexts
-      - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
       - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
       - kubectl get deployments
       - kubectl get svc 
