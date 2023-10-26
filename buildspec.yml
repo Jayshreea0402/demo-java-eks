@@ -25,11 +25,6 @@ phases:
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - echo "Login successfull..."
       - echo "setting the eks context aws-auth configmap..."
-      - kubectl config get-contexts
-      - echo "Updating aws-auth ConfigMap for EKS cluster"
-      - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
-      - kubectl apply -f aws-auth-configmap.yaml --context pmg-java3333
-      - echo "eks authentication configmap set successfully... "
       
   build:
     commands: 
@@ -42,6 +37,11 @@ phases:
         else 
           echo "No changes in main.tf. Skipping Terraform deployment."
         fi
+      - kubectl config get-contexts
+      - echo "Updating aws-auth ConfigMap for EKS cluster"
+      - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
+      - kubectl apply -f aws-auth-configmap.yaml --context pmg-java3333
+      - echo "eks authentication configmap set successfully... "
       - echo "building docker image..."
       - docker build -t java-demo-git .
       - docker tag java-demo-git:latest public.ecr.aws/m6r4f3q8/java-demo-git:latest
