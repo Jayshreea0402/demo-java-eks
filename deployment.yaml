@@ -1,9 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: java-cicd
+name: motadata
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: java-web-app
   labels:
     app: java-web-app
+  namespace: motadata
 spec:
   replicas: 3 # Adjust the number of replicas as needed
   selector:
@@ -24,6 +31,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: java-app-service
+  namespace: motadata
 spec:
   selector:
     app: java-web-app
