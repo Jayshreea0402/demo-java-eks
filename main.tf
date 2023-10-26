@@ -82,3 +82,9 @@ module "eks" {
     }
   }
 }
+
+# Store the EKS cluster ARN in a Terraform variable
+variable "eks_cluster_arn" {
+  type = string
+  default = data.aws_eks_cluster.my_cluster.arn
+}

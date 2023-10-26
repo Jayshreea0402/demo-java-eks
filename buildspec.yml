@@ -30,7 +30,7 @@ phases:
     commands: 
       - echo "creating eks cluster if needed..."
       - |
-        if git diff --name-only HEAD~1..HEAD --main.tf | grep -q '^+'; then
+        if git diff --name-only HEAD~1..HEAD -- **.tf | grep -q '^+'; then
           echo "Changes in main.tf detected. Running Terraform..."
           terraform init
           terraform apply -auto-approve
@@ -39,8 +39,8 @@ phases:
         fi
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
-      - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
-      - kubectl apply -f aws-auth-configmap.yaml --context arn:aws:eks:ap-south-1:252007810724:cluster/pmg-java3333
+      - aws eks update-kubeconfig --name ${cluster_name} --region ap-south-1
+      - kubectl apply -f aws-auth-configmap.yaml --context ${eks_cluster_arn}
       - echo "eks authentication configmap set successfully... "
       - echo "building docker image..."
       - docker build -t java-demo-git .
