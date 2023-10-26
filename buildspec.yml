@@ -54,7 +54,7 @@ phases:
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
       - aws eks update-kubeconfig --name pmg-java3333 --region ap-south-1
-      - kubectl apply -f aws-auth-configmap.yaml --context pmg-java3333
+      - kubectl apply -f aws-auth-configmap.yaml --context arn:aws:eks:ap-south-1:252007810724:cluster/pmg-java3333
       #- terraform init
       #- terraform apply -auto-approve
         # else
