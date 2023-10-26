@@ -73,6 +73,7 @@ phases:
       - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
       - kubectl get deployments
       - kubectl get svc 
+      - kubectl get ns 
 artifacts:
   files:
     - imagedefinitions.json
