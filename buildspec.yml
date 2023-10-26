@@ -63,7 +63,7 @@ phases:
   post_build:
     commands:
       - echo "pushing image to ECR"
-      - docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/java-demo-git:latest
+      - docker push public.ecr.aws/m6r4f3q8/java-demo-git:latest
       #- docker push public.ecr.aws/m6r4f3q8/java-demo-git:latest
       #- docker push 252007810724.dkr.ecr.eu-west-1.amazonaws.com/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
