@@ -25,22 +25,16 @@ phases:
       - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - echo "Login successfull..."
-      - echo "setting the eks context aws-auth configmap..."
       
   build:
     commands: 
-      - echo "creating eks cluster if needed..."
-      - |
-        if git diff --name-only HEAD~1..HEAD -- main.tf | grep -q '^+'; then
-          echo "Changes in main.tf detected. Running Terraform..."
-          terraform init
-          terraform apply -auto-approve
-        else 
-          echo "No changes in main.tf. Skipping Terraform deployment."
-        fi
+      - echo "creating eks cluster ..."
+      - terraform init
+      - terraform apply -auto-approve
+      - echo "setting the eks context aws-auth configmap..."
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
-      - aws eks update-kubeconfig --name ${cluster_name} --region ap-south-1
+      - aws eks update-kubeconfig --name pmg-automated1 --region ap-south-1
       - kubectl apply -f aws-auth-configmap.yaml 
       - echo "eks authentication configmap set successfully... "
 
