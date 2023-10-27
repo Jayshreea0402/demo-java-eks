@@ -11,8 +11,7 @@ Resources:
     Type: AWS::ECR::Repository
     Properties:
       RepositoryName: !Ref repositoryName
-      # ImageScanningConfiguration:
-      #   scanOnPush: true
+
 Outputs:
   Arn:
     Value: !GetAtt MyRepository.Arn
