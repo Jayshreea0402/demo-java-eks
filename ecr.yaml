@@ -3,8 +3,6 @@ Parameters:
   repositoryName:
     Type: String
     Default: motadata-image-repo
-  registryId:
-    Type: String
 
 Resources:
   MyRepository:
