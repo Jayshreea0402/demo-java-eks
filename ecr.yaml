@@ -1,21 +1,17 @@
-Parameters:    
-  lifecyclePolicyText:
-    Type: String
+Parameters:
   repositoryName:
     Type: String
-    defaults: motadata-image-repo
+    Default: motadata-image-repo
   registryId:
     Type: String
+
 Resources:
   MyRepository:
     Type: AWS::ECR::Repository
     Properties:
-      LifecyclePolicy:
-        LifecyclePolicyText: !Ref lifecyclePolicyText
-        RegistryId: !Ref registryId
       RepositoryName: !Ref repositoryName
-      ImageScanningConfiguration: 
-        ScanOnPush: true
-Outputs:    
+      # ImageScanningConfiguration:
+      #   scanOnPush: true
+Outputs:
   Arn:
     Value: !GetAtt MyRepository.Arn
