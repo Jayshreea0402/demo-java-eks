@@ -2,7 +2,7 @@ version: 0.2
 env:
   variables:
     ECR_REPO_NAME: java-demo-git
-    cluster_name: pmg-automated2
+    cluster_name: pmg-automated3
     #AWS_ACCOUNT_ID: 252007810724
     #AWS_REGION: ap-south-1
 
@@ -34,7 +34,7 @@ phases:
       - echo "setting the eks context aws-auth configmap..."
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
-      - aws eks update-kubeconfig --name pmg-automated2 --region ap-south-1
+      - aws eks update-kubeconfig --name pmg-automated3 --region ap-south-1
       - kubectl apply -f aws-auth-configmap.yaml 
       - echo "eks authentication configmap set successfully... "
 
