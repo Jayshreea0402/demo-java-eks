@@ -26,7 +26,7 @@ phases:
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - echo "Login successfull..."
       - echo "creating a ecr repo"
-      - aws cloudformation create-stack --stack-name ECRstack --template-body ecr.yaml --region ap-south-1
+      - aws cloudformation create-stack --stack-name ecrstack --template-body ecr.yaml --region ap-south-1
       
   build:
     commands: 
