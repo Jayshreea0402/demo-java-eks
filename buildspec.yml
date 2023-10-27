@@ -30,6 +30,7 @@ phases:
     commands: 
       - echo "creating eks cluster ..."
       - terraform init
+      - terraform update
       - terraform apply -auto-approve
       - echo "setting the eks context aws-auth configmap..."
       - kubectl config get-contexts
