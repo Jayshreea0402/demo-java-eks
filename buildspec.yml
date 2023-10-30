@@ -27,7 +27,7 @@ phases:
       - echo "Login successfull..."
       - echo "creating a ecr repo"
       - aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --fail-on-empty-changeset --disable-rollback
-      - aws cloudformation wait stack-create-complete --stack-name ecrstack
+      #- aws cloudformation wait stack-create-complete --stack-name ecrstack
       - echo "ecr repo created successfully..."
   build:
     commands: 
@@ -47,16 +47,16 @@ phases:
       - docker push public.ecr.aws/m6r4f3q8/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
       
-#   post_build:
-#     commands:
-#       - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
-#       - echo "artifacts uploading done..."
-#       - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
-#       - kubectl get nodes
-#       - kubectl get deployments -n motadata
-#       - kubectl get svc -n motadata
-#       - kubectl get ns 
-#       - kubectl describe service java-app-service -n motadata
-# artifacts:
-#   files:
-#     - imagedefinitions.json
+  post_build:
+    commands:
+      - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - echo "artifacts uploading done..."
+      - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
+      - kubectl get nodes
+      - kubectl get deployments -n motadata
+      - kubectl get svc -n motadata
+      - kubectl get ns 
+      - kubectl describe service java-app-service -n motadata
+artifacts:
+  files:
+    - imagedefinitions.json
