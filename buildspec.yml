@@ -14,26 +14,26 @@ phases:
     runtime-versions:
       java: corretto11
     commands:
-        - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
-        - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
-        - sudo apt update && sudo apt install terraform
+        # - wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        # - echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+        # - sudo apt update && sudo apt install terraform
         - echo "terraform installed successfully..."
   pre_build:
     commands:
-      - echo "Logging in to Amazon ECR..."
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m6r4f3q8
-      - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
-      - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
-      - echo "Login successfull..."
-      - echo "creating a ecr repo"
-      - aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --no-fail-on-empty-changeset --disable-rollback
+      # - echo "Logging in to Amazon ECR..."
+      # - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m6r4f3q8
+      # - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
+      # - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
+      # - echo "Login successfull..."
+      # - echo "creating a ecr repo"
+      # - aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --no-fail-on-empty-changeset --disable-rollback
       #- aws cloudformation wait stack-create-complete --stack-name ecrstack
       - echo "ecr repo created successfully..."
   build:
     commands: 
-      - echo "creating eks cluster ..."
-      - terraform init
-      - terraform apply -auto-approve
+      # - echo "creating eks cluster ..."
+      # - terraform init
+      # - terraform apply -auto-approve
       - echo "setting the eks context aws-auth configmap..."
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
