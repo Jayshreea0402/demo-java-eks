@@ -2,8 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
   repositoryName:
     Type: String
-    Default: motadata-image-repo
-
+    Default: java-demo-git
 Resources:
   MyRepository:
     Type: AWS::ECR::Repository

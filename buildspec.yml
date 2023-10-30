@@ -25,9 +25,9 @@ phases:
       - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - echo "Login successfull..."
-      # - echo "creating a ecr repo"
-      # - aws cloudformation create-stack --stack-name ecrstack --template-body ecr.yaml --region ap-south-1
-      
+      - echo "creating a ecr repo"
+      - aws cloudformation create-stack --stack-name ecrstack --template-body ecr.yaml --region ap-south-1 --no-fail-on-empty-changeset
+      - aws cloudformation wait stack-create-complete --stack-name ecrstack
   build:
     commands: 
       - echo "creating eks cluster ..."
