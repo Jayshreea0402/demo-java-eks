@@ -42,9 +42,9 @@ phases:
       - echo "eks authentication configmap set successfully... "
       - echo "building docker image..."
       - docker build -t ecr-repo-image .
-      - docker tag ecr-repo-image:latest public.ecr.aws/m6r4f3q8/ecr-repo-image:latest
+      - docker tag ecr-repo-image:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
       - echo "pushing image to ECR"
-      - docker push public.ecr.aws/m6r4f3q8/java-demo-git:latest
+      - docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
       - echo "successfully pushed image... check ECR repo"
       
   post_build:
