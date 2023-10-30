@@ -26,7 +26,7 @@ phases:
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - echo "Login successfull..."
       - echo "creating a ecr repo"
-      - aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --fail-on-empty-changeset --disable-rollback
+      - aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --no-fail-on-empty-changeset --disable-rollback
       #- aws cloudformation wait stack-create-complete --stack-name ecrstack
       - echo "ecr repo created successfully..."
   build:
