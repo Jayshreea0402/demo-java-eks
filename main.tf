@@ -1,6 +1,6 @@
 # Define the AWS provider
 provider "aws" {
-  region = "us-west-2"  # Set your desired AWS region
+  region = "ap-south-1"  # Set your desired AWS region
 }
 
 # Create a VPC
@@ -18,7 +18,7 @@ resource "aws_subnet" "eks_subnet" {
   count = 3
   vpc_id = aws_vpc.eks_vpc.id
   cidr_block = element(["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"], count.index)
-  availability_zone = element(["us-west-2a", "us-west-2b", "us-west-2c"], count.index)
+  availability_zone = element(["ap-south-1a", "ap-south-1b", "ap-south-1c"], count.index)
   map_public_ip_on_launch = true
 }
 
