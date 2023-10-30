@@ -1,8 +1,8 @@
 version: 0.2
 env:
   variables:
-    ECR_REPO_NAME: java-demo-git
-    cluster_name: java-terraform-pmg33
+    ECR_REPO_NAME: ecr-repo-image
+    cluster_name: java-terraform-pmg44
     #AWS_ACCOUNT_ID: 252007810724
     #AWS_REGION: ap-south-1
 
@@ -37,19 +37,19 @@ phases:
       - echo "setting the eks context aws-auth configmap..."
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
-      - aws eks update-kubeconfig --name java-terraform-pmg33 --region ap-south-1
+      - aws eks update-kubeconfig --name java-terraform-pmg44 --region ap-south-1
       - kubectl apply -f aws-auth-configmap.yaml 
       - echo "eks authentication configmap set successfully... "
       - echo "building docker image..."
-      - docker build -t java-demo-git .
-      - docker tag java-demo-git:latest public.ecr.aws/m6r4f3q8/java-demo-git:latest
+      - docker build -t ecr-repo-image .
+      - docker tag ecr-repo-image:latest public.ecr.aws/m6r4f3q8/ecr-repo-image:latest
       - echo "pushing image to ECR"
       - docker push public.ecr.aws/m6r4f3q8/java-dem`o-git:latest
       - echo "successfully pushed image... check ECR repo"
       
   post_build:
     commands:
-      - echo '[{"name":"java-demo-git","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
+      - echo '[{"name":"ecr-repo-image","imageUri":"%s"}]' ${ECR_IMAGE_URI} > imagedefinitions.json
       - echo "artifacts uploading done..."
       - kubectl apply -f $CODEBUILD_SRC_DIR/deployment.yaml
       - kubectl get nodes
