@@ -4,11 +4,11 @@ Parameters:
     Type: String
     Default: java-demo-git
 Resources:
-  MyRepository:
+  myRepository:
     Type: AWS::ECR::Repository
     Properties:
       RepositoryName: !Ref repositoryName
 
 Outputs:
   Arn:
-    Value: !GetAtt MyRepository.Arn
+    Value: !GetAtt myRepository.Arn
