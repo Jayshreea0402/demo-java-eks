@@ -44,7 +44,7 @@ phases:
       - docker build -t ecr-repo-image .
       - docker tag ecr-repo-image:latest public.ecr.aws/m6r4f3q8/ecr-repo-image:latest
       - echo "pushing image to ECR"
-      - docker push public.ecr.aws/m6r4f3q8/java-dem`o-git:latest
+      - docker push public.ecr.aws/m6r4f3q8/java-demo-git:latest
       - echo "successfully pushed image... check ECR repo"
       
   post_build:
