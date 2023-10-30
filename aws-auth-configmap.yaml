@@ -1,8 +1,8 @@
 apiVersion: v1
 data:
   mapRoles: |
-    - rolearn: arn:aws:iam::252007810724:role/java333-pmg33-cluster-20231030102605958800000002
-      username: java333-pmg33-cluster-20231030102605958800000002
+    - rolearn: arn:aws:iam::252007810724:role/java44-pmg44-cluster-20231030102605958800000002
+      username: java44-pmg44-cluster-20231030102605958800000002
       groups:
         - system:masters
   mapUsers: |
