@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "java-terraform-pmg22" # Enclose it in double quotes as a string
+  cluster_name = "java-terraform-pmg33" # Enclose it in double quotes as a string
 }
 
 module "vpc" {
