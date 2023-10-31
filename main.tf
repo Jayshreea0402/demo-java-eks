@@ -45,10 +45,6 @@ module "vpc" {
   }
 }
 
-resource "java55-pmg55" "default" {
-  create_kms_key = false
-} 
-
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.15.3"
