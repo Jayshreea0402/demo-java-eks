@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "pmg-cluster02" # Enclose it in double quotes as a string
+  cluster_name = "pmg-cluster03" # Enclose it in double quotes as a string
 }
 
 module "vpc" {
@@ -69,6 +69,7 @@ module "eks" {
       min_size     = 1
       max_size     = 2
       desired_size = 2
+      map_public_ip_on_launch = true
     }
 
     two = {
@@ -79,6 +80,7 @@ module "eks" {
       min_size     = 1
       max_size     = 2
       desired_size = 2
+      map_public_ip_on_launch = true
     }
   }
 }
