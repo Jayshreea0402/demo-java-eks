@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: java-app-container
-          image: public.ecr.aws/m6r4f3q8/ecr-repo-image:latest # Replace with your ECR image URL
+          image: 252007810724.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest # Replace with your ECR image URL
           ports:
             - containerPort: 80 # The port your web app listens on
 ---

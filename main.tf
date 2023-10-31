@@ -45,6 +45,10 @@ module "vpc" {
   }
 }
 
+resource "aws_eks_cluster" "default" {
+  create_kms_key = false
+} 
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "19.15.3"
