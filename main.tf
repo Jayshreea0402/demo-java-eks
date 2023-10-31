@@ -58,8 +58,8 @@ module "eks" {
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
+    encrypt_boot = false
   }
-  map_roles = false 
   eks_managed_node_groups = {
     one = {
       name = "node-group-1"
