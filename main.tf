@@ -16,7 +16,7 @@ data "aws_availability_zones" "available" {
 
 
 locals {
-  cluster_name = "pmg-cluster0055" # Enclose it in double quotes as a string
+  cluster_name = "pmg-cluster0066" # Enclose it in double quotes as a string
 }
 
 module "vpc" {

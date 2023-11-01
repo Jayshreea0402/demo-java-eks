@@ -1,8 +1,8 @@
 apiVersion: v1
 data:
   mapRoles: |
-    - rolearn: arn:aws:iam::252007810724:role/pmg-cluster0055-cluster-20231030102605958800000002
-      username: pmg-cluster0055-cluster-20231030102605958800000002
+    - rolearn: arn:aws:iam::252007810724:role/pmg-cluster0066-cluster-20231030102605958800000002
+      username: pmg-cluster0066-cluster-20231030102605958800000002
       groups:
         - system:masters
   mapUsers: |
