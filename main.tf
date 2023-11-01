@@ -16,7 +16,7 @@ data "aws_availability_zones" "available" {
 
 
 locals {
-  cluster_name = "pmg-cluster0044" # Enclose it in double quotes as a string
+  cluster_name = "pmg-cluster0055" # Enclose it in double quotes as a string
 }
 
 module "vpc" {
@@ -54,7 +54,7 @@ module "eks" {
   cluster_version = "1.27"
 
   vpc_id                         = module.vpc.vpc_id
-  subnet_ids                     = module.vpc.public_subnets
+  subnet_ids                     = module.vpc.private_subnets
   cluster_endpoint_public_access = true
 
   eks_managed_node_group_defaults = {
