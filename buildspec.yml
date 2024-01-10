@@ -2,8 +2,8 @@ version: 0.2
 env:
   variables:
     ECR_REPO_NAME: ecr-repo-image
-    cluster_name: pmg-cluster0066
-    AWS_ACCOUNT_ID: 252007810724
+    cluster_name: karpenter-terraform
+    AWS_ACCOUNT_ID: 779316103690
     AWS_REGION: ap-south-1
 
   secret-manager:
@@ -22,18 +22,20 @@ phases:
         - wget https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip
         - unzip terraform_0.15.0_linux_amd64.zip
         - mv terraform /usr/local/bin/
-        - sudo apt update && sudo apt install terraform
+        - terraform -v
+        - echo "terraform installed successfully..."
+        #- sudo apt update && sudo apt install terraform
   pre_build:
     commands:
       - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 252007810724.dkr.ecr.ap-south-1.amazonaws.com
-      - ECR_MAIN_URI="252007810724.dkr.ecr.ap-south-1.amazonaws.com"
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com
+      - ECR_MAIN_URI="${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com"
       - ECR_IMAGE_URI="${ECR_MAIN_URI}/${ECR_REPO_NAME}:latest"
       - echo "Login successfull..."
       - echo "creating a ecr repo"
-      - aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --no-fail-on-empty-changeset --disable-rollback
+      #- aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --no-fail-on-empty-changeset --disable-rollback
       #- aws cloudformation wait stack-create-complete --stack-name ecrstack
-      - echo "ecr repo created successfully..."
+      #- echo "ecr repo created successfully..."
   build:
     commands: 
       - echo "creating eks cluster ..."
@@ -42,14 +44,14 @@ phases:
       - echo "setting the eks context aws-auth configmap..."
       - kubectl config get-contexts
       - echo "Updating aws-auth ConfigMap for EKS cluster"
-      - aws eks update-kubeconfig --name pmg-cluster0066 --region ap-south-1
+      - aws eks update-kubeconfig --name ${Cluster_name} --region ap-south-1
       - kubectl apply -f aws-auth-configmap.yaml 
       - echo "eks authentication configmap set successfully... "
       - echo "building docker image..."
       - docker build -t ecr-repo-image .
-      - docker tag ecr-repo-image:latest 252007810724.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
+      - docker tag ecr-repo-image:latest ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
       - echo "pushing image to ECR"
-      - docker push 252007810724.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
+      - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
       - echo "successfully pushed image... check ECR repo"
       
   post_build:
