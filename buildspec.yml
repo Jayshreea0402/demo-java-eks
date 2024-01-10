@@ -19,9 +19,12 @@ phases:
         #- echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
         #- apt-get install unzip
         #- wget https://releases.hashicorp.com/terraform/1.3.7/terraform_1.3.7_linux_amd64.zip  | unzip terraform_1.3.7_linux_amd64.zip
-        - wget https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip
-        - unzip terraform_0.15.0_linux_amd64.zip
+        #- wget https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip
+        - wget -q https://releases.hashicorp.com/terraform/$(curl -s https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[0].version')/terraform_$(curl -s https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[0].version')_linux_amd64.zip
+        - unzip terraform_$(curl -s https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[0].version')_linux_amd64.zip
         - mv terraform /usr/local/bin/
+        #- unzip terraform_0.15.0_linux_amd64.zip
+        #- mv terraform /usr/local/bin/
         - terraform -v
         - echo "terraform installed successfully..."
         #- sudo apt update && sudo apt install terraform
