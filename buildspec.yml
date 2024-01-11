@@ -41,23 +41,23 @@ phases:
 #       #- aws cloudformation deploy --template-file ecr.yaml --stack-name repo-ecr --region ap-south-1 --no-fail-on-empty-changeset --disable-rollback
 #       #- aws cloudformation wait stack-create-complete --stack-name ecrstack
 #       #- echo "ecr repo created successfully..."
-#   build:
-#     commands: 
-#       - echo "creating eks cluster ..."
-#       - terraform init
-#       - terraform apply -auto-approve
-#       - echo "setting the eks context aws-auth configmap..."
-#       - kubectl config get-contexts
-#       - echo "Updating aws-auth ConfigMap for EKS cluster"
-#       - aws eks update-kubeconfig --name ${Cluster_name} --region ap-south-1
-#       - kubectl apply -f aws-auth-configmap.yaml 
-#       - echo "eks authentication configmap set successfully... "
-#       - echo "building docker image..."
-#       - docker build -t ecr-repo-image .
-#       - docker tag ecr-repo-image:latest ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
-#       - echo "pushing image to ECR"
-#       - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
-#       - echo "successfully pushed image... check ECR repo"
+  build:
+    commands: 
+      - echo "creating eks cluster ..."
+      - terraform init
+      - terraform apply -auto-approve
+      - echo "setting the eks context aws-auth configmap..."
+      # - kubectl config get-contexts
+      # - echo "Updating aws-auth ConfigMap for EKS cluster"
+      # - aws eks update-kubeconfig --name ${Cluster_name} --region ap-south-1
+      # - kubectl apply -f aws-auth-configmap.yaml 
+      # - echo "eks authentication configmap set successfully... "
+      # - echo "building docker image..."
+      # - docker build -t ecr-repo-image .
+      # - docker tag ecr-repo-image:latest ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
+      # - echo "pushing image to ECR"
+      # - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.ap-south-1.amazonaws.com/ecr-repo-image:latest
+      # - echo "successfully pushed image... check ECR repo"
       
 #   post_build:
 #     commands:
