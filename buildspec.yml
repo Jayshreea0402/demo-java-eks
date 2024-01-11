@@ -3,7 +3,7 @@ env:
   variables:
     ECR_REPO_NAME: ecr-repo-image
     cluster_name: karpenter-terraform
-    AWS_ACCOUNT_ID: 779316103690
+    AWS_ACCOUNT_ID: 
     AWS_REGION: ap-south-1
 
   secret-manager:
